@@ -127,18 +127,23 @@ bool			gbProgramIsRunning = false;
 
 
 
-int main (int argc, char **argv)
+int main (int argc, char* argv[])
 {
-	printf ( (s8*) "Chess36 -- A chess variation using a 6x6 board and modified piece movement.\n");
-	printf ( (s8*) "Version 2011.12.19.00\n");
+	printf ( (s8*) "Chess36 -- A 6x6 chess game. Faster to play. Not less challenging.\n");
+	printf ( (s8*) "-----\n");
+	printf ( (s8*) "Originally: 2011.12.19\n");
+	printf ( (s8*) "  Released: 2012.07.07\n");
+	printf ( (s8*) "   Version: 0.90 - This version still has bugs and unfinished components.\n");
+	printf ( (s8*) "-----\n");
 	printf ( (s8*) "Written by Rick C. Hodgin.\n");
-	printf ( (s8*) "Send Chess36 questions via email to rick dot hodgin at gmail dot com.\n");
+	printf ( (s8*) "Send Chess36 questions via email to rick dot c dot hodgin at gmail dot com.\n");
 	printf ( (s8*) "\n");
 	printf ( (s8*) "-----\n");
 	printf ( (s8*) "This project is free software licensed under the GNU General Public License v3.\n");
 	printf ( (s8*) "For additional information on free (libre) software, visit www.fsf.org.\n");
-	printf ( (s8*) "For information on the GNU GPLv3, visit http://www.gnu.org/copyleft/gpl.html.\n");
-	printf ( (s8*) "Freedom as in liberty.\n");
+	printf ( (s8*) "For information on the GNU GPLv3, visit http://gplv3.fsf.org.\n");
+	printf ( (s8*) "Freedom, as in liberty.\n");
+	printf ( (s8*) "-----\n");
 
 	loadBoardPiecesAndGraphics();		// Loads the graphical images
 	createChessWindow();				// Creates the chess game from its last saved state
@@ -342,7 +347,7 @@ void iTransformCopy (SPNG& spng, SRGBA32** img)
 void iTransformColorize (SPNG& spng, SRGBA32** img, u32 foreColor, bool colorizeAlpha)
 {
 	u32			lnx, lny;
-	f32			alp, malp, red, grn, blu, k, mk, fred, fgrn, fblu;
+	f32			alp, red, grn, blu, k, mk, fred, fgrn, fblu;
 	s8*			bd;
 	SRGBA32*		lrgbs;
 	SRGBA32*		lrgbd;
@@ -371,7 +376,6 @@ void iTransformColorize (SPNG& spng, SRGBA32** img, u32 foreColor, bool colorize
 				red		= (f32) lrgbs->red;
 				grn		= (f32) lrgbs->grn;
 				blu		= (f32) lrgbs->blu;
-				malp	= 1.0 - alp;
 
 				k		= ( (red * 0.35) + (grn * 0.54) + (blu * 0.11)) / 255.0;
 				mk		= 1.0 - k;
@@ -403,10 +407,10 @@ void iTransformColorize (SPNG& spng, SRGBA32** img, u32 foreColor, bool colorize
 void iTransformColorizeInverted (SPNG& spng, SRGBA32** img, u32 foreColor, bool colorizeAlpha)
 {
 	u32			lnx, lny;
-	f32			alp, malp, red, grn, blu, k, mk, fred, fgrn, fblu;
+	f32			alp, red, grn, blu, k, mk, fred, fgrn, fblu;
 	s8*			bd;
-	SRGBA32*		lrgbs;
-	SRGBA32*		lrgbd;
+	SRGBA32*	lrgbs;
+	SRGBA32*	lrgbd;
 
 	// Grab the foreColor colors
 	fred	= (f32) (foreColor & 0x0000ff);
@@ -432,7 +436,6 @@ void iTransformColorizeInverted (SPNG& spng, SRGBA32** img, u32 foreColor, bool 
 				red		= (f32) lrgbs->red;
 				grn		= (f32) lrgbs->grn;
 				blu		= (f32) lrgbs->blu;
-				malp	= 1.0 - alp;
 
 				k		= ( (red * 0.35) + (grn * 0.54) + (blu * 0.11)) / 255.0;
 				mk		= 1.0 - k;

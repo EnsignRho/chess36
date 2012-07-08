@@ -12,8 +12,8 @@ ProjectPath            := "/home/rick/codelite/chess36/chess36"
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=rick
-Date                   :=12/31/2011
+User                   :=Rick C. Hodgin
+Date                   :=07/07/2012
 CodeLitePath           :="/home/rick/.codelite"
 LinkerName             :=g++
 ArchiveTool            :=ar rcus
@@ -35,17 +35,13 @@ Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E 
-ObjectsFileList        :="/home/rick/codelite/chess36/chess36/chess36.txt"
-PCHCompileFlags        :=
 MakeDirCommand         :=mkdir -p
 CmpOptions             := -g -O0 -Wall $(Preprocessors)
-C_CmpOptions           := -g -O0 -Wall $(Preprocessors)
 LinkOptions            :=  
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
-IncludePCH             := 
-RcIncludePath          := 
-Libs                   := $(LibrarySwitch)png $(LibrarySwitch)Xext $(LibrarySwitch)X11 
-LibPath                := $(LibraryPathSwitch). 
+IncludePath            :=  "$(IncludeSwitch)." "$(IncludeSwitch)." 
+RcIncludePath          :=
+Libs                   :=$(LibrarySwitch)png $(LibrarySwitch)Xext $(LibrarySwitch)X11 
+LibPath                := "$(LibraryPathSwitch)." 
 
 
 ##
@@ -57,16 +53,13 @@ Objects=$(IntermediateDirectory)/chess36$(ObjectSuffix) $(IntermediateDirectory)
 ##
 ## Main Build Targets 
 ##
-.PHONY: all clean PreBuild PrePreBuild PostBuild
 all: $(OutputFile)
 
-$(OutputFile): $(IntermediateDirectory)/.d $(Objects) 
+$(OutputFile): makeDirStep $(Objects)
 	@$(MakeDirCommand) $(@D)
-	@echo "" > $(IntermediateDirectory)/.d
-	@echo $(Objects) > $(ObjectsFileList)
-	$(LinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
+	$(LinkerName) $(OutputSwitch)$(OutputFile) $(Objects) $(LibPath) $(Libs) $(LinkOptions)
 
-$(IntermediateDirectory)/.d:
+makeDirStep:
 	@test -d ./Debug || $(MakeDirCommand) ./Debug
 
 PreBuild:
@@ -76,20 +69,20 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/chess36$(ObjectSuffix): chess36.cpp $(IntermediateDirectory)/chess36$(DependSuffix)
-	$(CompilerName) $(IncludePCH) $(SourceSwitch) "/home/rick/codelite/chess36/chess36/chess36.cpp" $(CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/chess36$(ObjectSuffix) $(IncludePath)
+	$(CompilerName) $(SourceSwitch) "/home/rick/codelite/chess36/chess36/chess36.cpp" $(CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/chess36$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/chess36$(DependSuffix): chess36.cpp
-	@$(CompilerName) $(CmpOptions) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/chess36$(ObjectSuffix) -MF$(IntermediateDirectory)/chess36$(DependSuffix) -MM "/home/rick/codelite/chess36/chess36/chess36.cpp"
+	@$(CompilerName) $(CmpOptions) $(IncludePath) -MT$(IntermediateDirectory)/chess36$(ObjectSuffix) -MF$(IntermediateDirectory)/chess36$(DependSuffix) -MM "/home/rick/codelite/chess36/chess36/chess36.cpp"
 
 $(IntermediateDirectory)/chess36$(PreprocessSuffix): chess36.cpp
-	@$(CompilerName) $(CmpOptions) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/chess36$(PreprocessSuffix) "/home/rick/codelite/chess36/chess36/chess36.cpp"
+	@$(CompilerName) $(CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/chess36$(PreprocessSuffix) "/home/rick/codelite/chess36/chess36/chess36.cpp"
 
 $(IntermediateDirectory)/x11$(ObjectSuffix): x11.cpp $(IntermediateDirectory)/x11$(DependSuffix)
-	$(CompilerName) $(IncludePCH) $(SourceSwitch) "/home/rick/codelite/chess36/chess36/x11.cpp" $(CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/x11$(ObjectSuffix) $(IncludePath)
+	$(CompilerName) $(SourceSwitch) "/home/rick/codelite/chess36/chess36/x11.cpp" $(CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/x11$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/x11$(DependSuffix): x11.cpp
-	@$(CompilerName) $(CmpOptions) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/x11$(ObjectSuffix) -MF$(IntermediateDirectory)/x11$(DependSuffix) -MM "/home/rick/codelite/chess36/chess36/x11.cpp"
+	@$(CompilerName) $(CmpOptions) $(IncludePath) -MT$(IntermediateDirectory)/x11$(ObjectSuffix) -MF$(IntermediateDirectory)/x11$(DependSuffix) -MM "/home/rick/codelite/chess36/chess36/x11.cpp"
 
 $(IntermediateDirectory)/x11$(PreprocessSuffix): x11.cpp
-	@$(CompilerName) $(CmpOptions) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/x11$(PreprocessSuffix) "/home/rick/codelite/chess36/chess36/x11.cpp"
+	@$(CompilerName) $(CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/x11$(PreprocessSuffix) "/home/rick/codelite/chess36/chess36/x11.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
@@ -104,6 +97,5 @@ clean:
 	$(RM) $(IntermediateDirectory)/x11$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/x11$(PreprocessSuffix)
 	$(RM) $(OutputFile)
-	$(RM) "/home/rick/codelite/chess36/chess36/.build-debug/chess36"
 
 
